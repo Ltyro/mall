@@ -68,7 +68,7 @@ public class OrderServiceImpl implements IOrderService {
 		Set<Integer> productIdSet = cartList.stream()
 				.map(Cart::getProductId)
 				.collect(Collectors.toSet());
-		List<Product> productList = productMapper.selectByProductIdSet(productIdSet);
+		List<Product> productList = productMapper.selectBatchIds(productIdSet);
 		Map<Integer, Product> map  = productList.stream()
 				.collect(Collectors.toMap(Product::getId, product -> product));
 
@@ -99,7 +99,7 @@ public class OrderServiceImpl implements IOrderService {
 
 			//减库存
 			product.setStock(product.getStock() - cart.getQuantity());
-			int row = productMapper.updateByPrimaryKeySelective(product);
+			int row = productMapper.updateById(product);
 			if (row <= 0) {
 				return ResponseVo.error(ResponseEnum.ERROR);
 			}

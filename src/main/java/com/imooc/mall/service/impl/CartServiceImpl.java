@@ -43,7 +43,7 @@ public class CartServiceImpl implements ICartService {
 	public ResponseVo<CartVo> add(Integer uid, CartAddForm form) {
 		Integer quantity = 1;
 
-		Product product = productMapper.selectByPrimaryKey(form.getProductId());
+		Product product = productMapper.selectById(form.getProductId());
 
 		//商品是否存在
 		if (product == null) {
@@ -99,7 +99,7 @@ public class CartServiceImpl implements ICartService {
 			Cart cart = gson.fromJson(entry.getValue(), Cart.class);
 
 			//TODO 需要优化，使用mysql里的in
-			Product product = productMapper.selectByPrimaryKey(productId);
+			Product product = productMapper.selectById(productId);
 			if (product != null) {
 				CartProductVo cartProductVo = new CartProductVo(productId,
 						cart.getQuantity(),

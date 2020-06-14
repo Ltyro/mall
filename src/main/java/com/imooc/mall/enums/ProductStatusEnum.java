@@ -13,7 +13,7 @@ public enum ProductStatusEnum {
 
 	OFF_SALE(2),
 
-	DELETE(3),
+	DELETE(1),
 
 
 
